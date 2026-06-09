@@ -1,5 +1,5 @@
 from pydantic_settings import BaseSettings
-from typing import Any
+from typing import Dict
 from .secret_manager import SecretManager
 
 
@@ -20,27 +20,17 @@ class Settings(BaseSettings):
     REDIS_PORT: int
     REDIS_PASSWORD: str
 
+    # RABBITMQ CONFIGURATION
+    RABBITMQ_URL: str = "amqp://admin:admin123@localhost:5672/"
+    QUEUE_NAME: str = "notifications"
 
+    class Config:
+        extra = "ignore"  # Ignore extra fields from Infisical
 
     @classmethod
     def load(cls):
-        # This tells Pylance: "Trust me, I know exactly what this dictionary contains."
-        infisical_secrets = SecretManager()
-        infisical_secrets.connect()
-        infisical_secrets.fetch_secrets()
-        secrets_dict = infisical_secrets.get_secrets()
-        # print(infisical_secrets)
-        # for key, value in infisical_secrets.items():
-        #     value = str(value)
-
-        #     if len(value) > 3:
-        #         masked_value = value[:3] + "*" * (len(value) - 3)
-        #     else:
-        #         masked_value = "*" * len(value)
-
-        #     print(f"{key}: {masked_value}")
-
-        # print("======================\n")
+        secret_manager = SecretManager()
+        secrets_dict: Dict[str, str] = secret_manager.get_secrets()
         return cls(**secrets_dict)  # type: ignore
 
 
@@ -48,4 +38,5 @@ settings = Settings.load()
 
 
 if __name__ == "__main__":
-    print(settings)
+    print(settings.MONGO_DB_URI)
+    print(settings.REDIS_HOST)
