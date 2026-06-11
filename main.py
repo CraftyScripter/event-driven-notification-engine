@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import asyncio
 from consumers.rabbitmq_consumer import RabbitMQConsumer
 from notifications.service import NotificationService
+from core import RedisManager
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -12,6 +13,10 @@ async def lifespan(app: FastAPI):
     await MongoDatabase.connect()
     print("Successfully connected to MongoDB")
 
+    await RedisManager().connect()
+    print("Successfully connected to Redis")
+
+    # Dependency Injection for NotificationService and RabbitMQConsumer
     notification_service = (
         NotificationService()
     )
@@ -19,6 +24,7 @@ async def lifespan(app: FastAPI):
     consumer = RabbitMQConsumer(
         notification_service=notification_service
     )
+
     consumer_task = asyncio.create_task(
         consumer.start()
     )
@@ -33,6 +39,9 @@ async def lifespan(app: FastAPI):
         consumer_task.cancel()
 
         await MongoDatabase.close()
+
+        await RedisManager().disconnect()
+        print("Successfully disconnected from Redis")
 
         print("Successfully closed MongoDB connection")
 
