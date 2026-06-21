@@ -1,6 +1,7 @@
 from pydantic_settings import BaseSettings
 from typing import Dict
 from .secret_manager import SecretManager
+from pydantic import SecretStr
 
 
 class Settings(BaseSettings):
@@ -9,16 +10,16 @@ class Settings(BaseSettings):
     MONGO_DB_NAME: str = "NotificationEngineDB"
 
     # GMAIL API CONFIGURATION
-    SMTP_USER: str
-    SMTP_PASSWORD: str
+    SMTP_EMAIL: str
+    SMTP_PASSWORD: SecretStr
     SMTP_HOST: str
-    SMTP_PORT: int = 587
+    SMTP_PORT: int = 465
     EMAIL_FROM_NAME: str
 
     # REDIS CONFIGURATION
     REDIS_HOST: str
     REDIS_PORT: int
-    REDIS_PASSWORD: str
+    REDIS_PASSWORD: SecretStr
 
     # RABBITMQ CONFIGURATION
     RABBITMQ_URL: str = "amqp://admin:admin123@localhost:5672/"

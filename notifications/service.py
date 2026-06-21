@@ -1,42 +1,50 @@
-from core.enums import NotificationChannel
+# notifications/service.py
 
-from notifications.providers.sms_provider import SMSProvider
+from core.enums import NotificationChannel
+from notifications.template_engine import (
+    TemplateEngine,
+)
+from notifications.provider_manager import (
+    ProviderManager,
+)
+
 from events.schemas.otp import OTPEvent
 
 
 class NotificationService:
-    """
-    Service responsible for routing notifications
-    to the appropriate provider.
-    """
 
-    def __init__(self) -> None:
-
-        # Dyanmically initialize providers based on supported channels
-        self.providers = {
-            NotificationChannel.SMS: SMSProvider(),
-        }
-        print(self.providers)
-
-    async def send_otp(
+    def __init__(
         self,
-        event: OTPEvent,
+        template_engine: TemplateEngine,
+        provider_manager: ProviderManager,
     ) -> None:
-        """
-        Process OTP notification request
-        and route it to the correct provider.
-        """
 
-        provider = self.providers.get(event.data.channel)
+        self.template_engine = template_engine
+        self.provider_manager = provider_manager
 
-        if provider is None:
-            raise ValueError(
-                f"Unsupported notification channel: {event.data.channel}"
-            )
 
-        message = f"Your OTP is {event.data.otp}"
+    async def process(
+        self,
+        *,
+        template_name: str,
+        channel: NotificationChannel,
+        recipient: str,
+        context: dict,
+        subject: str | None = None,
+    ) -> None:
+        print(f"NotificationService: Processing notification for recipient: {recipient}, channel: {channel}, template: {template_name}")
 
-        await provider.send(
-            recipient=event.data.recipient,
-            message=message,
+        content = await self.template_engine.render(
+            template_name=template_name,
+            channel=channel,
+            context=context
+        )
+
+        print(f"NotificationService: Generated content: {content}")
+
+        await self.provider_manager.send(
+            channel=channel,
+            recipients=[recipient],
+            content=content,
+            subject=subject
         )

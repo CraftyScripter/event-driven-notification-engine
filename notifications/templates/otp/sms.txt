@@ -1,0 +1,6 @@
+Notification-Engine
+Your verification code is: {{ otp }}
+Valid for 10 minutes.
+
+Built by @CraftyScripter.
+LinkedIn: https://www.linkedin.com/in/anuj-kumar-04594629b

@@ -34,8 +34,8 @@ async def main():
             "timestamp": datetime.now().isoformat(),
             "source": "auth-service",
             "data": {
-                "channel": "sms",
-                "recipient": "+919999999999",
+                "channel": "email",
+                "recipient": "anujkcontactme122003@gmail.com",
                 "otp": "123456",
             },
         }

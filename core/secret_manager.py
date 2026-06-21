@@ -1,12 +1,13 @@
 import os
 import time
 import logging
-from typing import Dict, Optional, Any
-from datetime import datetime, timedelta
+from typing import Dict, Optional
+from datetime import datetime
 from dotenv import load_dotenv
 from infisical_sdk import InfisicalSDKClient
 
 load_dotenv()
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -68,7 +69,7 @@ class SecretManager:
         
         return secrets
     
-    def get_secrets(self, force_refresh: bool = False) -> Dict[str, str]:
+    def get_secrets(self, force_refresh: bool = True) -> Dict[str, str]:
         """Get all secrets with caching"""
         if not force_refresh and self._is_cache_valid() and self._cache is not None:
             logger.debug("Returning cached secrets")

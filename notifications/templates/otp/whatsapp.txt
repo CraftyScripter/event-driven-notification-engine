@@ -1,0 +1,10 @@
+⚙️ *Notification-Engine* 
+
+Your verification code for *@CraftyScripter* is: *{{ otp }}*
+This code is valid for *10 minutes*.
+
+If you did not request this code, please ignore this message.
+___
+Built for learning purposes. 🚀
+• *GitHub:* https://github.com/CraftyScripter
+• *LinkedIn:* https://www.linkedin.com/in/anuj-kumar-04594629b

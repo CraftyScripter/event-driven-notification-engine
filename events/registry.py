@@ -1,13 +1,14 @@
 from core import EventType
 
 from events import OTPEvent
-from events import OTPEventHandler
+from events.handlers.otp_handler import OTPEventHandler
 
 
 EVENT_REGISTRY = {
     EventType.AUTH_OTP_SENT: {
         "schema": OTPEvent,
         "handler": OTPEventHandler,
+        "template": "otp"
     }
 }
 

@@ -1,0 +1,80 @@
+.
+├── consumers
+│   ├── __pycache__
+│   │   └── rabbitmq_consumer.cpython-313.pyc
+│   └── rabbitmq_consumer.py
+├── core
+│   ├── config.py
+│   ├── database.py
+│   ├── enums.py
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   ├── config.cpython-313.pyc
+│   │   ├── database.cpython-313.pyc
+│   │   ├── enums.cpython-313.pyc
+│   │   ├── __init__.cpython-313.pyc
+│   │   ├── redis_manager.cpython-313.pyc
+│   │   └── secret_manager.cpython-313.pyc
+│   ├── redis_manager.py
+│   └── secret_manager.py
+├── docker-compose.yaml
+├── events
+│   ├── handlers
+│   │   ├── base.py
+│   │   ├── otp_handler.py
+│   │   └── __pycache__
+│   │       ├── base.cpython-313.pyc
+│   │       └── otp_handler.cpython-313.pyc
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   ├── __init__.cpython-313.pyc
+│   │   └── registry.cpython-313.pyc
+│   ├── registry.py
+│   ├── schemas
+│   │   ├── base.py
+│   │   ├── otp.py
+│   │   └── __pycache__
+│   │       ├── base.cpython-313.pyc
+│   │       └── otp.cpython-313.pyc
+│   └── services
+│       └── idempotency_service.py
+├── main.py
+├── notifications
+│   ├── __init__.py
+│   ├── provider_manager.py
+│   ├── providers
+│   │   ├── base.py
+│   │   ├── email_provider
+│   │   │   ├── __pycache__
+│   │   │   │   └── simple_mail_provider.cpython-313.pyc
+│   │   │   └── simple_mail_provider.py
+│   │   ├── __pycache__
+│   │   │   ├── base.cpython-313.pyc
+│   │   │   └── sms_provider.cpython-313.pyc
+│   │   ├── sms_provider.py
+│   │   └── sms_providers
+│   ├── __pycache__
+│   │   ├── __init__.cpython-313.pyc
+│   │   ├── provider_manager.cpython-313.pyc
+│   │   ├── service.cpython-313.pyc
+│   │   └── template_engine.cpython-313.pyc
+│   ├── service.py
+│   ├── template_engine.py
+│   └── templates
+│       └── otp
+│           ├── email.html
+│           ├── sms.txt
+│           └── whatsapp.txt
+├── __pycache__
+│   └── main.cpython-313.pyc
+├── pyproject.toml
+├── README.md
+├── scripts
+│   ├── publish_otp_event.py
+│   ├── __pycache__
+│   │   └── publish_otp_event.cpython-313.pyc
+│   └── redis_connection_test.py
+├── tree.txt
+└── uv.lock
+
+24 directories, 54 files

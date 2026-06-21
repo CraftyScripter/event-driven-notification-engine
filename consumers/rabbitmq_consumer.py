@@ -153,6 +153,7 @@ class RabbitMQConsumer:
         # Validate only the common fields that all events share.
         # This gives us the event_type to look up the specific configuration.
         base_event = BaseEvent.model_validate(payload)
+        print(base_event)
 
         # ===== STEP 2: Registry Lookup =====
         # Find the specific schema and handler for this event type.
@@ -175,7 +176,7 @@ class RabbitMQConsumer:
         # Handlers are stateless and can be created per message.
         handler_cls = event_config["handler"]
         handler = handler_cls(notification_service=self.notification_service)
-
+        print(f"Resolved handler {handler_cls.__name__} for event type {base_event.event_type}")
         # ===== STEP 5: Handler Execution =====
         # Execute the handler's business logic with the validated event.
         # This is where actual notification operations (SMS, email, etc.) occur.
