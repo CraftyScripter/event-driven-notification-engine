@@ -12,7 +12,7 @@ import aio_pika
 
 # from core.config import settings
 RABBITMQ_URL = "amqp://admin:admin123@localhost:5672/"
-QUEUE_NAME = "notifications"
+QUEUE_NAME = "main_queue"
 
 
 async def main():
@@ -34,7 +34,7 @@ async def main():
             "timestamp": datetime.now().isoformat(),
             "source": "auth-service",
             "data": {
-                "channel": "email",
+                "channel": "sms",
                 "recipient": "anujkcontactme122003@gmail.com",
                 "otp": "123456",
             },

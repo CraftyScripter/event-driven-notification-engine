@@ -96,11 +96,11 @@ class RabbitMQConsumer:
 
         # Declare queue (creates if not exists)
         # Durable=True ensures queue survives broker restart
-        queue = await channel.declare_queue(settings.QUEUE_NAME, durable=True)
+        main_queue = await channel.declare_queue(settings.MAIN_QUEUE, durable=True)
 
         # Iterate through messages indefinitely
         # The async context manager handles message acknowledgment automatically
-        async with queue.iterator() as queue_iter:
+        async with main_queue.iterator() as queue_iter:
             async for message in queue_iter:
                 # process() context manager automatically acknowledges message
                 # when exiting successfully, or rejects on exception
